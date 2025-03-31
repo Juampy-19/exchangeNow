@@ -1,11 +1,13 @@
 import './App.css';
-import Price from './components/Price.jsx';
+import Crypto from './components/Crypto.jsx';
+import Fiat from './components/Fiat.jsx';
 
 function App() {
   return (
     <>
      <h1>Exchange Now</h1>
-     <Price />
+     <Crypto />
+     <Fiat />
     </>
   );
 }

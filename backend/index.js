@@ -7,8 +7,10 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 3001;
 
-const priceRouter = require('./routes/priceRouter.js');
+const cryptoRouter = require('./routes/cryptoRouter.js');
+const fiatRouter = require('./routes/fiatRouter.js');
 
-app.use('/api', priceRouter);
+app.use('/api', cryptoRouter);
+app.use('/api', fiatRouter);
 
 app.listen(PORT, () => console.log(`Server listenning on port ${PORT}`));

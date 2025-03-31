@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function Price() {
+function Crypto() {
     const [price, setPrice] = useState(null);
     const [cryptos, setCryptos] = useState([]);
     const [selectedCrypto, setSelectedCrypto] = useState('');
@@ -9,7 +9,7 @@ function Price() {
     useEffect(() => {
         const fetchCryptos = async () => {
             try  {
-                const response = await axios.get('http://localhost:3001/api/price');
+                const response = await axios.get('http://localhost:3001/api/crypto');
                 setCryptos(response.data);
             } catch (error) {
                 console.error('Error al obtener criptomonedas: ', error.message)
@@ -56,4 +56,4 @@ function Price() {
     )
 }
 
-export default Price;
+export default Crypto;

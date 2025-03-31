@@ -1,7 +1,7 @@
 const axios = require('axios');
 
-const getPrice = async (req, res) => {
-    const { money, crypto } = req.query;
+const cryptoPrice = async (req, res) => {
+    // const { money, crypto } = req.query;
     try {
         const url = `https://api.binance.com/api/v3/ticker/price`;
         const response = await axios.get(url);
@@ -18,4 +18,4 @@ const getPrice = async (req, res) => {
     }
 }
 
-module.exports = { getPrice };
+module.exports = { cryptoPrice };
