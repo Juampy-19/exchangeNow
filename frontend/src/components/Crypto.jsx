@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -52,6 +53,10 @@ function Crypto() {
             </button>
 
             {price && <p>Precio: {price} usd</p>}
+
+            <Link to='/'>
+                <button>Inicio</button>
+            </Link>
         </div>
     )
 }
