@@ -2,12 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Loading from './Loading.jsx';
 
 const Fiat = () => {
     const [from, setFrom] = useState('');
     const [to, setTo] = useState('');
     const [currencies, setCurrencies] = useState([]);
     const [result, setResult] = useState('');
+    const [loading, setLoading] = useState(false);
 
     // Obtengo las monedas al cargar el componente.
     useEffect(() => {
@@ -24,6 +26,7 @@ const Fiat = () => {
 
     // Manejo la cotización.
     const handleGetFiatPrice = async () => {
+        setLoading(true);
         try {
             const response = await axios.get(`http://localhost:3001/api/fiat?from=${from}&to=${to}`);
             const fiat = response.data.fiat;
@@ -31,6 +34,8 @@ const Fiat = () => {
         } catch (error) {
             console.error('Error al obtener el precio de la moneda: ', error);
             setResult('Error al obtener el precio.');
+        } finally  {
+            setLoading(false);
         }
     };
 
@@ -39,7 +44,7 @@ const Fiat = () => {
 
   return (
     <div>
-        <h1>Precio de moneda</h1>
+        <h1>Precio de monedas oficiales</h1>
 
         <div>
             <select id='from' value={from} onChange={(e) => setFrom(e.target.value)}>
@@ -59,7 +64,11 @@ const Fiat = () => {
             <button onClick={handleGetFiatPrice} disabled={disabled}>Cotizar</button>
         </div>
 
-        {result && (<p>{result}</p>)}
+        { loading ? (
+            <Loading />
+        ) : (
+            result && <p>{result}</p>
+        )}
 
         <Link to='/'>
             <button>Inicio</button>

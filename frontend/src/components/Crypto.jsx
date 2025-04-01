@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import Loading from './Loading.jsx';
 
 function Crypto() {
     const [price, setPrice] = useState(null);
     const [cryptos, setCryptos] = useState([]);
     const [selectedCrypto, setSelectedCrypto] = useState('');
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const fetchCryptos = async () => {
@@ -26,6 +28,7 @@ function Crypto() {
 
     const handleGetPrice = async () => {
         if (!selectedCrypto) return;
+        setLoading(true);
 
         try {
             const response = await axios.get(`https://api.binance.com/api/v3/ticker/price?symbol=${selectedCrypto}`);
@@ -33,6 +36,8 @@ function Crypto() {
             setPrice(formattedPrice);
         } catch (error) {
             console.error('Error al obtener el precio: ', error.message);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -50,7 +55,11 @@ function Crypto() {
 
             <button onClick={handleGetPrice} disabled={!selectedCrypto}>Cotizar</button>
 
-            {price && <p>Precio: {price} usd</p>}
+            { loading ? (
+                <Loading />
+            ) : (
+                price && <p>Precio: {price} usd</p>
+            )}
 
             <Link to='/'>
                 <button>Inicio</button>
