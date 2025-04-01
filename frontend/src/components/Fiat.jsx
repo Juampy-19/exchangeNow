@@ -1,35 +1,65 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 const Fiat = () => {
-    const [from, setFrom] = useState('USD');
-    const [to, setTo] = useState('ARS');
-    const [price, setPrice] = useState(null);
+    const [from, setFrom] = useState('');
+    const [to, setTo] = useState('');
+    const [currencies, setCurrencies] = useState([]);
+    const [result, setResult] = useState('');
 
+    // Obtengo las monedas al cargar el componente.
+    useEffect(() => {
+        const fetchCurrencies = async () => {
+            try {
+                const response = await axios.get('https://api.exchangerate-api.com/v4/latest/USD');
+                setCurrencies(Object.keys(response.data.rates));
+            } catch (error) {
+                console.error('Error al obtener las monedas: ', error);
+            }
+        };
+        fetchCurrencies();
+    }, []);
+
+    // Manejo la cotización.
     const handleGetFiatPrice = async () => {
         try {
             const response = await axios.get(`http://localhost:3001/api/fiat?from=${from}&to=${to}`);
-            setPrice(response.data.fiat);
+            const fiat = response.data.fiat;
+            setResult(`1 ${from} = ${fiat} ${to}`);
         } catch (error) {
             console.error('Error al obtener el precio de la moneda: ', error);
-            setPrice('Error al obtener el precio.');
+            setResult('Error al obtener el precio.');
         }
     };
+
+    // Desactivación del botón cotizar.
+    const disabled = !from || !to || from === to;
 
   return (
     <div>
         <h1>Precio de moneda</h1>
 
         <div>
-            <input type="text" placeholder="Moneda de origen" value={from} onChange={(e) => setFrom(e.target.value.toUpperCase())} />
-            <input type="text" placeholder="Moneda de destino" value={to} onChange={(e) => setTo(e.target.value.toUpperCase())} />
+            <select id='from' value={from} onChange={(e) => setFrom(e.target.value)}>
+                <option value='' disabled>Seleccione una moneda</option>
+                {currencies.map((currency) => (
+                    <option key={currency} value={currency}>{currency}</option>
+                ))}
+            </select>
 
-            <button onClick={handleGetFiatPrice}>Cotizar</button>
+            <select id='to' value={to} onChange={(e) => setTo(e.target.value)}>
+                <option value='' disabled>Seleccione una moneda</option>
+                {currencies.map((currency) => (
+                    <option key={currency} value={currency}>{currency}</option>
+                ))}
+            </select>
+
+            <button onClick={handleGetFiatPrice} disabled={disabled}>Cotizar</button>
         </div>
 
-        {price && (<p>1 {from} = {price} {to}</p>)}
+        {result && (<p>{result}</p>)}
 
         <Link to='/'>
             <button>Inicio</button>

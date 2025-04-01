@@ -48,9 +48,7 @@ function Crypto() {
                 ))}
             </select>
 
-            <button onClick={handleGetPrice} disabled={!selectedCrypto}>
-                Obtener Precio
-            </button>
+            <button onClick={handleGetPrice} disabled={!selectedCrypto}>Cotizar</button>
 
             {price && <p>Precio: {price} usd</p>}
 
