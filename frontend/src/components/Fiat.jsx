@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Button from './Button.jsx';
 import Loading from './Loading.jsx';
 
 const Fiat = () => {
@@ -69,10 +69,8 @@ const Fiat = () => {
         ) : (
             result && <p>{result}</p>
         )}
-
-        <Link to='/'>
-            <button>Inicio</button>
-        </Link>
+        
+        <Button to='/'>Inicio</Button>
     </div>
   )
 }
