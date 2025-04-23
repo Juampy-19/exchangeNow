@@ -43,35 +43,40 @@ const Fiat = () => {
     const disabled = !from || !to || from === to;
 
   return (
-    <div>
-        <h1>Precio de monedas oficiales</h1>
+      <div className='flex flex-col items-center justify-between gap-20'>
+          <h1 className='mt-[50px] text-xl font-semibold'>
+              Precio de Monedas Oficiales
+          </h1>
 
-        <div>
-            <select id='from' value={from} onChange={(e) => setFrom(e.target.value)}>
-                <option value='' disabled>Seleccione una moneda</option>
-                {currencies.map((currency) => (
-                    <option key={currency} value={currency}>{currency}</option>
-                ))}
-            </select>
+          <div className='flex flex-col justify-center gap-[15px] h-[15em] lg:h-[6em]'> {/* h-[15%] */}
+              <select id='from' value={from} onChange={(e) => setFrom(e.target.value)} className='bg-slate-800 dark:bg-slate-400 text-white dark:text-black rounded-xl text-lg px-2'>
+                  <option value='' disabled>Seleccione una moneda</option>
+                  {currencies.map((currency) => (
+                      <option key={currency} value={currency}>{currency}</option>
+                  ))}
+              </select>
 
-            <select id='to' value={to} onChange={(e) => setTo(e.target.value)}>
-                <option value='' disabled>Seleccione una moneda</option>
-                {currencies.map((currency) => (
-                    <option key={currency} value={currency}>{currency}</option>
-                ))}
-            </select>
+              <select id='to' value={to} onChange={(e) => setTo(e.target.value)} className='bg-slate-800 dark:bg-slate-400 text-white dark:text-black rounded-xl text-lg px-2'>
+                  <option value='' disabled>Seleccione una moneda</option>
+                  {currencies.map((currency) => (
+                      <option key={currency} value={currency}>{currency}</option>
+                  ))}
+              </select>
+          </div>
 
-            <button onClick={handleGetFiatPrice} disabled={disabled}>Cotizar</button>
-        </div>
+          <div className='h-[10%]'>
+              {loading ? (
+                  <Loading />
+              ) : (
+                  result && <p>{result}</p>
+              )}
+          </div>
 
-        { loading ? (
-            <Loading />
-        ) : (
-            result && <p>{result}</p>
-        )}
-        
-        <Button to='/'>Inicio</Button>
-    </div>
+          <div className='flex flex-col gap-5 mb-[15px]'>
+              <Button onClick={handleGetFiatPrice} disabled={disabled}>Cotizar</Button>
+              <Button to='/'>Inicio</Button>
+          </div>
+      </div>
   )
 }
 

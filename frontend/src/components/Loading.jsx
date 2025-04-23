@@ -4,8 +4,7 @@ import '../css/loader.css';
 const loading = () => {
   return (
     <div>
-      {/* <p>loading...</p> */}
-      <div aria-label="Orange and tan hamster running in a metal wheel" role="img" class="wheel-and-hamster">
+      <div aria-label="Orange and tan hamster running in a metal wheel" role="img" className="wheel-and-hamster">
         <div className="wheel"></div>
         <div className="hamster">
           <div className="hamster__body">
@@ -21,7 +20,7 @@ const loading = () => {
             <div className="hamster__tail"></div>
           </div>
         </div>
-        <div class="spoke"></div>
+        <div className="spoke"></div>
       </div>
     </div>
   )
