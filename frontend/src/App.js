@@ -10,7 +10,7 @@ const App = () => {
   return (    
     <div className='min-h-screen bg-slate-400 dark:bg-slate-800 text-slate-800 dark:text-white'>
       <Header />
-      <div className='flex justify-center items-center'>
+      <div>
         <Router>
           <Routes>
             <Route path='/' element={<Home />} />
