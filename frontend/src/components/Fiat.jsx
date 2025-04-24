@@ -48,7 +48,7 @@ const Fiat = () => {
               Precio de Monedas Oficiales
           </h1>
 
-          <div className='flex flex-col justify-center gap-[15px] h-[15em] lg:h-[6em]'> {/* h-[15%] */}
+          <div className='flex flex-col justify-center gap-[15px] h-[6em]'> {/* h-[15%] */}
               <select id='from' value={from} onChange={(e) => setFrom(e.target.value)} className='bg-slate-800 dark:bg-slate-400 text-white dark:text-black rounded-xl text-lg px-2'>
                   <option value='' disabled>Seleccione una moneda</option>
                   {currencies.map((currency) => (
@@ -64,7 +64,7 @@ const Fiat = () => {
               </select>
           </div>
 
-          <div className='h-[10%]'>
+          <div className='h-[6em] flex items-center'>
               {loading ? (
                   <Loading />
               ) : (

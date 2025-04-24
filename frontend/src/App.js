@@ -8,7 +8,7 @@ import Header from './components/Header.jsx';
 const App = () => {
 
   return (    
-    <div className='min-h-screen bg-slate-400 dark:bg-slate-800 text-slate-800 dark:text-white'>
+    <div className='min-h-screen bg-slate-400 dark:bg-slate-800 text-slate-800 dark:text-white font-lato'>
       <Header />
       <div>
         <Router>
