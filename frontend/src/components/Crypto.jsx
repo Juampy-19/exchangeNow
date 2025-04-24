@@ -57,7 +57,7 @@ function Crypto() {
             <h1 className='mt-[50px] text-xl font-semibold'>
                 Precio de criptomonedas
             </h1>
-            <div className='h-[8em] md:h-[0]'>
+            <div className='h-[4em] md:h-[0]'>
                 <select value={selectedCrypto} onChange={handleSelectChange} className='text-black rounded-xl text-lg px-2'>
                     <option value=''>Seleccione una criptomoneda</option>
                     {cryptos.map((crypto) => (
@@ -68,7 +68,7 @@ function Crypto() {
                 </select>
             </div>
 
-            <div className='h-[10%]'>
+            <div className='h-[6em] flex items-center'>
                 {loading ? (
                     <Loading />
                 ) : price ? (
