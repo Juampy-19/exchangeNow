@@ -9,6 +9,7 @@ const Fiat = () => {
     const [to, setTo] = useState('');
     const [currencies, setCurrencies] = useState([]);
     const [result, setResult] = useState('');
+    const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
     // Obtengo las monedas al cargar el componente.
@@ -24,8 +25,27 @@ const Fiat = () => {
         fetchCurrencies();
     }, []);
 
+    const handleSelectFromChange = (e) => {
+        setFrom(e.target.value);
+    }
+
+    const handleSelectToChange = (e) => {
+        setTo(e.target.value);
+    }
+
+    useEffect(() => {
+        setResult('');
+        setError('');
+    }, [from, to]);
+
     // Manejo la cotización.
     const handleGetFiatPrice = async () => {
+        if (!from || !to) {
+            setError('Debe seleccionar ambas monedas');
+            return;
+        }
+        setResult('');
+        setError('');
         setLoading(true);
         try {
             const response = await axios.get(`http://localhost:3001/api/fiat?from=${from}&to=${to}`);
@@ -39,9 +59,6 @@ const Fiat = () => {
         }
     };
 
-    // Desactivación del botón cotizar.
-    const disabled = !from || !to || from === to;
-
   return (
       <div className='flex flex-col items-center justify-between gap-20'>
           <h1 className='mt-[50px] text-xl font-semibold'>
@@ -49,14 +66,14 @@ const Fiat = () => {
           </h1>
 
           <div className='flex flex-col justify-center gap-[15px] h-[6em]'> {/* h-[15%] */}
-              <select id='from' value={from} onChange={(e) => setFrom(e.target.value)} className='bg-slate-800 dark:bg-slate-400 text-white dark:text-black rounded-xl text-lg px-2'>
+              <select id='from' value={from} onChange={handleSelectFromChange} className='bg-slate-800 dark:bg-slate-400 text-white dark:text-black rounded-xl text-lg px-2'>
                   <option value='' disabled>Seleccione una moneda</option>
                   {currencies.map((currency) => (
                       <option key={currency} value={currency}>{currency}</option>
                   ))}
               </select>
 
-              <select id='to' value={to} onChange={(e) => setTo(e.target.value)} className='bg-slate-800 dark:bg-slate-400 text-white dark:text-black rounded-xl text-lg px-2'>
+              <select id='to' value={to} onChange={handleSelectToChange} className='bg-slate-800 dark:bg-slate-400 text-white dark:text-black rounded-xl text-lg px-2'>
                   <option value='' disabled>Seleccione una moneda</option>
                   {currencies.map((currency) => (
                       <option key={currency} value={currency}>{currency}</option>
@@ -67,13 +84,15 @@ const Fiat = () => {
           <div className='h-[6em] flex items-center'>
               {loading ? (
                   <Loading />
-              ) : (
-                  result && <p>{result}</p>
-              )}
+              ) : result ? (
+                  <p>{result}</p>
+              ) : error ? (
+                    <p>{error}</p>
+              ) : null}
           </div>
 
           <div className='flex flex-col gap-5 mb-[15px]'>
-              <Button onClick={handleGetFiatPrice} disabled={disabled}>Cotizar</Button>
+              <Button onClick={handleGetFiatPrice}>Cotizar</Button>
               <Button to='/'>Inicio</Button>
           </div>
       </div>
