@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 const Button = ({to, onClick, children, ...props}) => {
-  const baseClass = 'w-60 bg-emerald-700 text-white hover:bg-emerald-400 hover:text-slate-800 py-2 border-none rounded-xl cursor-pointer transition duration-500';
+  const baseClass = 'w-60 bg-emerald-700 text-white hover:bg-emerald-400 hover:text-slate-800 py-2 border-none rounded-xl cursor-pointer transition duration-500 active:translate-y-0.5 active:shadow-inner transition-all duration-150';
 
   if (to) {
     return (
