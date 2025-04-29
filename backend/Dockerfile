@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Exponer el puerto
-EXPOSE 3001
+EXPOSE 10000
 
 # Comando para iniciar la app
 CMD ["npm", "start"]
