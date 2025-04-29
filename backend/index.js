@@ -13,4 +13,8 @@ const fiatRouter = require('./routes/fiatRouter.js');
 app.use('/api', cryptoRouter);
 app.use('/api', fiatRouter);
 
+app.get('/', (req, res) => {
+    res.status(200).send('Backend is up and running!');
+});
+
 app.listen(PORT, () => console.log(`Server listenning on port ${PORT}`));
