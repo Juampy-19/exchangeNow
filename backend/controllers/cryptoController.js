@@ -7,6 +7,9 @@ const cryptoPrice = async (req, res) => {
         const response = await axios.get(url);
         const cryptos = response.data;
 
+        console.log('Datos recibidos de Binance: ', cryptos);
+        
+
         // Filtro solo algunas de las criptomonedas.
         const topCryptos = ['BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'ADAUSDT', 'DOGEUSDT'];
         const filteredCryptos = cryptos.filter(crypto => topCryptos.includes(crypto.symbol));
