@@ -48,7 +48,8 @@ const Fiat = () => {
         setError('');
         setLoading(true);
         try {
-            const response = await axios.get(`http://localhost:3001/api/fiat?from=${from}&to=${to}`);
+            // const response = await axios.get(`http://localhost:3001/api/fiat?from=${from}&to=${to}`);
+            const response = await axios.get(`https://exchange-now-back.onrender.com/api/fiat?from=${from}&to=${to}`);
             const fiat = response.data.fiat;
             setResult(`1 ${from} = ${fiat} ${to}`);
         } catch (error) {
