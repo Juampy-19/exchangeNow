@@ -13,8 +13,8 @@ function Crypto() {
     useEffect(() => {
         const fetchCryptos = async () => {
             try  {
-                const response = await axios.get('http://localhost:3001/api/crypto');
-                // const response = await axios.get('https://exchange-now-back.onrender.com/api/crypto');
+                // const response = await axios.get('http://localhost:3001/api/crypto');
+                const response = await axios.get('https://exchange-now-back.onrender.com/api/crypto');
                 setCryptos(response.data);
             } catch (error) {
                 console.error('Error al obtener criptomonedas: ', error.message)
